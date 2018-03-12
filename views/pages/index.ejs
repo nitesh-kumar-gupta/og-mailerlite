@@ -9,7 +9,7 @@
                             <select class="form-control" name="group" id="group">
                                 <option value="">Groups</option>
                                 <% for(let i = 0; i < groups.length; i++) { %>
-                                    <option value="<%= groups[i].id %>;<%= groups[i].name %>"><%= groups[i].calPid %></option>
+                                    <option value="<%= groups[i].id %>;<%= groups[i].name %>"><%= groups[i].name %></option>
                                 <% } %>
                             </select>
                         <% } %>
@@ -19,7 +19,7 @@
                             <select class="form-control" name="calc" id="calc">
                                 <option value="">Calculators</option>
                                 <% for(let i = 0; i < calcs.length; i++) { %>
-                                    <option value="<%= calcs[i].id %>;<%= calcs[i].meta_data.url %>;<%= calcs[i].calPid %>"><%= calcs[i].meta_data.url %></option>
+                                    <option value="<%= calcs[i].id %>;<%= calcs[i].meta_data.url %>;<%= calcs[i].calcPid %>"><%= calcs[i].meta_data.url %></option>
                                 <% } %>
                             </select>
                         <% } %>
@@ -45,9 +45,9 @@
                             <% for(let i = 0; i < linkdata.length; i++) { %>
                                 <tr>
                                     <td><%= linkdata[i].mlgid %></td>
-                                    <td><%= linkdata[i].calPid %></td>
                                     <td><%= linkdata[i].groupname %></td>
                                     <td><%= linkdata[i].id %></td>
+                                    <td><%= linkdata[i].calcPid %></td>
                                     <td><%= linkdata[i].url %></td>
                                 </tr>
                             <% } %>

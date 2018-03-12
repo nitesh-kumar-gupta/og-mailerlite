@@ -8,14 +8,15 @@ const mailer = {
 
     index: async (req, res, next) => {
         try {
-            let reqs = await request('https://api.outgrow.co/api/v1/calculator?status=Live&type=Both&sort=alpha_asc', {
+            let reqs = await request('https://outgrow-api.herokuapp.com/api/v1/calculator?status=LIVE&type=Both&sort=alpha_asc', {
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json',
-                    'API-Key': '24d1e4cd5576db3e748e1e761b45f3'
+                    'API-Key': '52d8f1a8f7f993e5cc2e4368dfa194'
                 }
             });
             let calc = JSON.parse(reqs.body).data;
+            console.log(JSON.parse(reqs.body).data)
             reqs = await request('https://api.mailerlite.com/api/v2/groups', {
                 method: 'GET',
                 headers: {

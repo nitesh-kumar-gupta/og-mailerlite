@@ -2,10 +2,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const calcgroupSchema = new Schema({
-    calcid: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-    },
+    // calcid: {
+    //     type: mongoose.Schema.Types.ObjectId,
+       
+    // },
     calcPid: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
