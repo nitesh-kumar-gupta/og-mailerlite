@@ -6,8 +6,9 @@ $(document).ready(function(){
         const gname = group[1];
         const calcId = calc[0];
         const URL = calc[1];
+        const calpid = calc[2];
         $("#btnMapGC").attr('value', 'Please Wait...').attr('disabled', true);
-        $.post("http://localhost:3001/link",{calcid: calcId,mlgid: mlgid, groupname: gname, url: URL}, function (data){
+        $.post("http://localhost:3001/link",{calcid: calcId,mlgid: mlgid, groupname: gname, url: URL,calPid:calpid}, function (data){
             $("#btnMapGC").attr('value', 'Map').attr('disabled', false);
             console.log('************', data);
         });
