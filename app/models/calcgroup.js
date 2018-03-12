@@ -6,6 +6,10 @@ const calcgroupSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
+    calcPid: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
     url: {
         type: String,
         required: true,

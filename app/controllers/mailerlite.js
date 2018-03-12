@@ -42,7 +42,7 @@ const mailer = {
     addsubscribertogroup: async (req, res, next) => {
         try {
                 let data = req.body
-                let calcgroup = await Calcgroup.findOne({url:data.url},{mlgid:1})
+                let calcgroup = await Calcgroup.findOne({calcPid:data.calcPid},{mlgid:1})
                 console.log(calcgroup)
                 let reqs = await request('https://api.mailerlite.com/api/v2/groups/'+calcgroup.mlgid+'/subscribers', {
                     method: 'POST',
@@ -50,7 +50,7 @@ const mailer = {
                         'content-type': 'application/json',
                         'X-MailerLite-ApiKey': apiKey
                     },
-                    data: data
+                    data: data.leads
                 });
                 const resp = successConst.OK;
                 resp.data = reqs.body;
