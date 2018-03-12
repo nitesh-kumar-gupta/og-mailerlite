@@ -50,11 +50,9 @@ const mailer = {
                         'content-type': 'application/json',
                         'X-MailerLite-ApiKey': apiKey
                     },
-                    data: data.leads
+                    data: data.lead
                 });
-                const resp = successConst.OK;
-                resp.data = reqs.body;
-                respond.success(res, resp);
+                res.status(200).json(reqs.body);
             } catch (error) {
                 console.log(error)
             }
