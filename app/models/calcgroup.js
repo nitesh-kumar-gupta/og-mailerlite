@@ -2,11 +2,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const calcgroupSchema = new Schema({
-    // calcid: {
-    //     type: mongoose.Schema.Types.ObjectId,
-       
-    // },
-    calcPid: {
+    calcid: {
+        // type: mongoose.Schema.Types.ObjectId,
+        type: String,
+    },
+    parentapp: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
     },

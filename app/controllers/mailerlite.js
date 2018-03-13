@@ -1,18 +1,23 @@
 
 const request = require('async-request')
-// const groupService = require('./../services/group');
-const apiKey = process.env.apiKey;
+// const mlapikey = process.env.mlapikey;
+// const ogapikey= process.env.ogapikey;
 const https = require('https');
 const Calcgroup = require('./../models/calcgroup');
+const Apikey = require('./../models/apikey');
+const apihelper = require('./../helper/api');
+
 const mailer = {
 
     index: async (req, res, next) => {
         try {
+            let apikey = await apihelper.getapi();
+            console.log("---------------------",apikey)
             let reqs = await request('https://outgrow-api.herokuapp.com/api/v1/calculator?status=LIVE&type=Both&sort=alpha_asc', {
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json',
-                    'API-Key': '52d8f1a8f7f993e5cc2e4368dfa194'
+                    'API-Key': apikey.ogapikey
                 }
             });
             let calc = JSON.parse(reqs.body).data;
@@ -21,10 +26,10 @@ const mailer = {
                 method: 'GET',
                 headers: {
                     'content-type': 'application/json',
-                    'X-MailerLite-ApiKey': apiKey
+                    'X-MailerLite-ApiKey': apikey.mlapikey
                 }
             });
-            let linkData = await Calcgroup.find({})
+            let linkData = await Calcgroup.find({active: true})
             res.render('pages/index', {groups: JSON.parse(reqs.body), calcs: calc,linkdata:linkData});
         } catch (error) {
             console.log(error)
@@ -40,8 +45,24 @@ const mailer = {
             console.log(err);
         }
     },
+    changekey: async (req, res, next) => {
+        try {
+            let apikey = await Apikey.findOne({});
+            if(apikey) {
+                apikey.mlapikey = req.body.mlapikey;
+                apikey.ogapikey = req.body.ogapikey;
+            } else {
+                apikey = new Apikey(req.body);
+            }
+            await apikey.save();
+            res.status(200).json(apikey)
+        } catch (err) {
+            console.log(err);
+        }
+    },
     addsubscribertogroup: async (req, res, next) => {
         try {
+                let apikey = await apihelper.getapi();
                 let data = req.body
                 let calcgroup = await Calcgroup.findOne({calcPid:data.calcPid},{mlgid:1})
                 console.log(calcgroup)
@@ -49,7 +70,7 @@ const mailer = {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json',
-                        'X-MailerLite-ApiKey': apiKey
+                        'X-MailerLite-ApiKey': apikey.mlapikey
                     },
                     data: data.leads
                 });
